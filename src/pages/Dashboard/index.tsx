@@ -21,7 +21,7 @@ import {
   ProductButton,
 } from './styles';
 
-interface Product {
+interface IProduct {
   id: string;
   title: string;
   image_url: string;
@@ -31,18 +31,19 @@ interface Product {
 const Dashboard: React.FC = () => {
   const { addToCart } = useCart();
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      // TODO
+      const { data } = await api.get('/products');
+      setProducts(data);
     }
 
     loadProducts();
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    addToCart(item);
   }
 
   return (
